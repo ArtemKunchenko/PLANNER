@@ -10,7 +10,7 @@
         <Button
             Height="100"
             Width="300"
-            Content="TEST"
+            Content="CONFLICT"
             FontSize="50"/>
 
     </Grid>
