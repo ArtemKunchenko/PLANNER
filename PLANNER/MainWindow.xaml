@@ -10,7 +10,7 @@
         <Button
             Height="100"
             Width="300"
-            Content="NewTEST"
+            Content="Test2"
             FontSize="50"/>
 
     </Grid>
