@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PLANNER"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="Aqua">
+    <Grid Background="Red">
         <Button
             Height="100"
             Width="300"
