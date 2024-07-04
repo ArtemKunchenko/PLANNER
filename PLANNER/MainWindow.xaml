@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PLANNER"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="Red">
+    <Grid Background="Aqua">
         <Button
             Height="100"
             Width="300"
-            Content="TEST 2"
+            Content="NewTEST"
             FontSize="50"/>
 
     </Grid>
