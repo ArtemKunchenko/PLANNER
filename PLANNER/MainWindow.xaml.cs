@@ -27,7 +27,23 @@ namespace PLANNER
 
             DropDownPopup.IsOpen = !DropDownPopup.IsOpen;
         }
+        private void Page1Button_Click(object sender, RoutedEventArgs e)
+        {
+            FrameContent.Navigate(new Page1());
+            DropDownPopup.IsOpen = false;
+        }
+        private void Page2Button_Click(object sender, RoutedEventArgs e)
+        {
+            FrameContent.Navigate(new Page2());
+            DropDownPopup.IsOpen = false;
+        }
 
 
+
+        private void Page3Button_Click(object sender, RoutedEventArgs e)
+        {
+            FrameContent.Navigate(new Page3());
+            DropDownPopup.IsOpen = false;
+        }
     }
 }
