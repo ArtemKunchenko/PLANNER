@@ -15,17 +15,14 @@ using System.Windows.Shapes;
 
 namespace PLANNER
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for Page1.xaml
+    /// </summary>
+    public partial class Page1 : Page
     {
-        public MainWindow()
+        public Page1()
         {
             InitializeComponent();
-        }
-
-        private void DropDownButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            DropDownPopup.IsOpen = !DropDownPopup.IsOpen;
         }
     }
 }

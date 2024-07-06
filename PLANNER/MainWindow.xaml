@@ -1,21 +1,17 @@
-﻿<Window x:Class="PLANNER.MainWindow"
+﻿<Window x:Class="YourNamespace.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PLANNER"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid >
-        <Grid.RowDefefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition ></RowDefinition>
-        </Grid.RowDefefinition>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button x:Name="Page1" Content="Page1" Height="35" MinWidth="100" Margine="5,5,5,5" ></Button>
-            <Button x:Name="Page2" Content="Page2" Height="35" MinWidth="100" Margine="5,5,5,5" ></Button>
-            <Button x:Name="Page3" Content="Page3" Height="35" MinWidth="100" Margine="5,5,5,5" ></Button>
-        </StackPanel>
-        <Frame Grid.Row="1"></Frame>
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button x:Name="DropDownButton" Content="List" Width="100" Height="30" Click="DropDownButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Popup x:Name="DropDownPopup" Placement="Relative" HorizontalOffset="0" VerticalOffset="30" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+            <Border BorderBrush="Black" BorderThickness="1" Background="White">
+                <StackPanel>
+                    <Button Content="Page1" Width="100" Margin="5"/>
+                    <Button Content="Page2" Width="100" Margin="5"/>
+                    <Button Content="Page3" Width="100" Margin="5"/>
+                </StackPanel>
+            </Border>
+        </Popup>
     </Grid>
 </Window>

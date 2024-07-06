@@ -13,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PLANNER
+namespace PLANNER.Pages
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for Page3.xaml
+    /// </summary>
+    public partial class Page3 : Page
     {
-        public MainWindow()
+        public Page3()
         {
             InitializeComponent();
-        }
-
-        private void DropDownButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            DropDownPopup.IsOpen = !DropDownPopup.IsOpen;
         }
     }
 }
