@@ -6,12 +6,16 @@
         xmlns:local="clr-namespace:PLANNER"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="Aqua">
-        <Button
-            Height="100"
-            Width="300"
-            Content="Test2"
-            FontSize="50"/>
-
+    <Grid >
+        <Grid.RowDefefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefefinition>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button x:Name="Page1" Content="Page1" Height="35" MinWidth="100" Margine="5,5,5,5" ></Button>
+            <Button x:Name="Page2" Content="Page2" Height="35" MinWidth="100" Margine="5,5,5,5" ></Button>
+            <Button x:Name="Page3" Content="Page3" Height="35" MinWidth="100" Margine="5,5,5,5" ></Button>
+        </StackPanel>
+        <Frame Grid.Row="1"></Frame>
     </Grid>
 </Window>
