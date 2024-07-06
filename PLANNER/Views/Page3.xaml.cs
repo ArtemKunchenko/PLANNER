@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PLANNER.Pages
+namespace PLANNER
 {
     /// <summary>
     /// Interaction logic for Page3.xaml
