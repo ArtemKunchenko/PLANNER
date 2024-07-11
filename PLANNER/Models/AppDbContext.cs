@@ -13,8 +13,11 @@ using static Azure.Core.HttpHeader;
 
 namespace PLANNER.Models
 {
-    public class AppDbContext : DbContext
+    public partial class AppDbContext : DbContext
     {
+        
+
+
         private readonly IConfiguration _configuration;
 
         public DbSet<Currency> Currencies { get; set; }
