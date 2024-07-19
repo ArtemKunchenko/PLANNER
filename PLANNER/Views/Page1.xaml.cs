@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PLANNER.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace PLANNER
         public Page1()
         {
             InitializeComponent();
+            LoadExchangingRatesAsync();
+        }
+        private async Task LoadExchangingRatesAsync()
+        {
+            await CurrentExchangingRate.InitializeExangingRates(); 
+            InitializeTextBlocks(); 
+        }
+        public void InitializeTextBlocks()
+        {
+            var USD = CurrentExchangingRate.GetExhangingRateByCurrencyName("USD");
+            var EUR = CurrentExchangingRate.GetExhangingRateByCurrencyName("EUR");
+
+            USDTextBlock.Text = USD != null ? USD.ToString() : "USD rate not found";
+            EURTextBlock.Text = EUR != null ? EUR.ToString() : "EUR rate not found";
         }
     }
 }

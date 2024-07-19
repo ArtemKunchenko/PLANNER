@@ -9,6 +9,28 @@
       Title="Page1">
 
     <Grid Background="Green">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock 
+            Grid.Row="0"
+            x:Name="USDTextBlock"
+            Background="White"
+            Height="40"
+            Width="200"
+            Foreground="Black">
+            
+        </TextBlock>
+        <TextBlock 
+            Grid.Row="1"
+    x:Name="EURTextBlock"
+    Background="White"
+    Height="40"
+    Width="200"
+            Foreground="Black">
+
+        </TextBlock>
+
     </Grid>
 </Page>
