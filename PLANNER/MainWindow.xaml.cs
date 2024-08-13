@@ -24,17 +24,18 @@ namespace PLANNER
         public MainWindow()
         {
 
+
+
+            #region PERFORMANCE TESTS
             var config = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory() + @"\")
-               .AddJsonFile("appsettings.json")
-               .Build();
+                           .SetBasePath(Directory.GetCurrentDirectory() + @"\")
+                           .AddJsonFile("appsettings.json")
+                           .Build();
 
 
             string connectionString = config.GetConnectionString("DefaultConnection");
-
-
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlServer(connectionString);
+            //var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            //optionsBuilder.UseSqlServer(connectionString);
 
             //using (var connection = new AppDbContext(optionsBuilder.Options, config))
             //{
@@ -44,18 +45,18 @@ namespace PLANNER
             //using (var connection = new AppDbContext(optionsBuilder.Options, config))
             //{
             //    var serviceUser = new ServiceUser(connection);
-            //    serviceUser.UpdateUser(new User { user_id=1,username = "Anton", password = "321" });
+            //    serviceUser.UpdateUser(new User { user_id = 1, username = "Anton", password = "321" });
             //}
             //using (var connection = new AppDbContext(optionsBuilder.Options, config))
             //{
             //    var serviceUser = new ServiceUser(connection);
-            //      serviceUser.GetUser(2);
+            //    serviceUser.GetUser(2);
 
             //}
             //using (var connection = new AppDbContext(optionsBuilder.Options, config))
             //{
             //    var serviceUser = new ServiceUser(connection);
-            //   serviceUser.GetUsers();
+            //    serviceUser.GetUsers();
 
             //}
             //using (var connection = new AppDbContext(optionsBuilder.Options, config))
@@ -63,11 +64,29 @@ namespace PLANNER
             //    var serviceUser = new ServiceUser(connection);
             //    serviceUser.DeleteUser(1);
 
-            //}
+            //} 
+            #endregion
+
 
 
             InitializeComponent();
-            DataContext=new ViewModels.MainViewModel();
+            InitializeDefaultData();
+            DataContext = new ViewModels.MainViewModel();
+        }
+
+        private void InitializeDefaultData()
+        {
+           
+            var currencies = ServiceCurrency.GetCurrencies();
+            if (currencies.Count == 0)
+            {
+                ServiceCurrency.CreateCurrency(new Currency { currency_code = "UAN" });
+                ServiceCurrency.CreateCurrency(new Currency { currency_code = "USD" });
+                ServiceCurrency.CreateCurrency(new Currency { currency_code = "EUR" });
+                
+            }
+            //var users = ServiceUser.GetUsers();
+            //if (users.Count==0) ServiceUser.CreateUser(new User { username = "Admin", password = "Admin" });
         }
 
         private void DropDownButton_Click(object sender, RoutedEventArgs e)
@@ -75,6 +94,6 @@ namespace PLANNER
 
             DropDownPopup.IsOpen = !DropDownPopup.IsOpen;
         }
-        
+
     }
 }
