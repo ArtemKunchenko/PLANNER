@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,41 +10,70 @@ using System.Windows.Controls;
 
 namespace PLANNER.Models
 {
-    public class ServiceExchange
+    public static class ServiceExchange
     {
-        private readonly AppDbContext _context;
-        public ServiceExchange(AppDbContext context)
-        {
-            _context = context;
-        }
-        public void CreateExchange(Exchange exchange)
-        {
-            _context.Exchanges.Add(exchange);
-            _context.SaveChanges();
+        private static readonly DbContextOptions<AppDbContext> _options;
+        private static readonly IConfiguration _config;
 
-        }
-        public void UpdateExchange(Exchange exchange)
+        static ServiceExchange()
         {
-            _context.Exchanges.Update(exchange);
-            _context.SaveChanges();
+            _config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory() + @"\")
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            string connectionString = _config.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+
+            _options = optionsBuilder.Options;
         }
-        public void DeleteExchange(int id)
+
+        public static void CreateExchange(Exchange exchange)
         {
-            var exchange = _context.Exchanges.Find(id);
-            if (exchange != null)
+            using (var context = new AppDbContext(_options, _config))
             {
-                _context.Exchanges.Remove(exchange);
-                _context.SaveChanges();
+                context.Exchanges.Add(exchange);
+                context.SaveChanges();
             }
         }
-        public List<Exchange> GetExchanges()
+
+        public static void UpdateExchange(Exchange exchange)
         {
-            return _context.Exchanges.ToList();
+            using (var context = new AppDbContext(_options, _config))
+            {
+                context.Exchanges.Update(exchange);
+                context.SaveChanges();
+            }
         }
-        public Exchange GetExchange(int id)
+
+        public static void DeleteExchange(int id)
         {
-            var exchange = _context.Exchanges.Find(id);
-            return exchange;
+            using (var context = new AppDbContext(_options, _config))
+            {
+                var exchange = context.Exchanges.Find(id);
+                if (exchange != null)
+                {
+                    context.Exchanges.Remove(exchange);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static List<Exchange> GetExchanges()
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Exchanges.ToList();
+            }
+        }
+
+        public static Exchange GetExchange(int id)
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Exchanges.Find(id);
+            }
         }
     }
 }
