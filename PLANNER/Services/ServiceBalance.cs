@@ -1,46 +1,78 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PLANNER.Models
 {
-    public class ServiceBalance
+    public static class ServiceBalance
     {
-        private readonly AppDbContext _context;
-        public ServiceBalance(AppDbContext context)
-        {
-            _context = context;
-        }
-        public void CreateBalance(Balance balance)
-        {
-            _context.Balances.Add(balance);
-            _context.SaveChanges();
+        private static readonly DbContextOptions<AppDbContext> _options;
+        private static readonly IConfiguration _config;
 
-        }
-        public void UpdateBalance(Balance balance)
+        static ServiceBalance()
         {
-            _context.Balances.Update(balance);
-            _context.SaveChanges();
+            _config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory() + @"\")
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            string connectionString = _config.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+
+            _options = optionsBuilder.Options;
         }
-        public void DeleteBalance(int id)
+
+        public static void CreateBalance(Balance balance)
         {
-            var balance = _context.Balances.Find(id);
-            if (balance != null)
+            using (var context = new AppDbContext(_options, _config))
             {
-                _context.Balances.Remove(balance);
-                _context.SaveChanges();
+                context.Balances.Add(balance);
+                context.SaveChanges();
             }
         }
-        public List<Balance> GetBankaccounts()
+
+        public static void UpdateBalance(Balance balance)
         {
-            return _context.Balances.ToList();
+            using (var context = new AppDbContext(_options, _config))
+            {
+                context.Balances.Update(balance);
+                context.SaveChanges();
+            }
         }
-        public Balance GetBankaccount(int id)
+
+        public static void DeleteBalance(int id)
         {
-            var balance = _context.Balances.Find(id);
-            return balance;
+            using (var context = new AppDbContext(_options, _config))
+            {
+                var balance = context.Balances.Find(id);
+                if (balance != null)
+                {
+                    context.Balances.Remove(balance);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static List<Balance> GetBalances()
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Balances.ToList();
+            }
+        }
+
+        public static Balance GetBalance(int id)
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Balances.Find(id);
+            }
         }
     }
 }
