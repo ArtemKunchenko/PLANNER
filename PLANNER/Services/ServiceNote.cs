@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,41 +10,70 @@ using System.Xml.Linq;
 
 namespace PLANNER.Models
 {
-    public class ServiceNote
+    public static class ServiceNote
     {
-        private readonly AppDbContext _context;
-        public ServiceNote(AppDbContext context)
-        {
-            _context = context;
-        }
-        public void CreateNote(Note note)
-        {
-            _context.Notes.Add(note);
-            _context.SaveChanges();
+        private static readonly DbContextOptions<AppDbContext> _options;
+        private static readonly IConfiguration _config;
 
-        }
-        public void UpdateNote(Note note)
+        static ServiceNote()
         {
-            _context.Notes.Update(note);
-            _context.SaveChanges();
+            _config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory() + @"\")
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            string connectionString = _config.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+
+            _options = optionsBuilder.Options;
         }
-        public void DeleteNote(int id)
+
+        public static void CreateNote(Note note)
         {
-            var note = _context.Notes.Find(id);
-            if (note != null)
+            using (var context = new AppDbContext(_options, _config))
             {
-                _context.Notes.Remove(note);
-                _context.SaveChanges();
+                context.Notes.Add(note);
+                context.SaveChanges();
             }
         }
-        public List<Note> GetNotes()
+
+        public static void UpdateNote(Note note)
         {
-            return _context.Notes.ToList();
+            using (var context = new AppDbContext(_options, _config))
+            {
+                context.Notes.Update(note);
+                context.SaveChanges();
+            }
         }
-        public Note GetNote(int id)
+
+        public static void DeleteNote(int id)
         {
-            var note = _context.Notes.Find(id);
-            return note;
+            using (var context = new AppDbContext(_options, _config))
+            {
+                var note = context.Notes.Find(id);
+                if (note != null)
+                {
+                    context.Notes.Remove(note);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static List<Note> GetNotes()
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Notes.ToList();
+            }
+        }
+
+        public static Note GetNote(int id)
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Notes.Find(id);
+            }
         }
     }
 }
