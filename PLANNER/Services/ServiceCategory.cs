@@ -1,46 +1,78 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PLANNER.Models
 {
-    public class ServiceCategory
+    public static class ServiceCategory
     {
-        private readonly AppDbContext _context;
-        public ServiceCategory(AppDbContext context)
-        {
-            _context = context;
-        }
-        public void CreateCategory(Category category)
-        {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+        private static readonly DbContextOptions<AppDbContext> _options;
+        private static readonly IConfiguration _config;
 
-        }
-        public void UpdateCategory(Category category)
+        static ServiceCategory()
         {
-            _context.Categories.Update(category);
-            _context.SaveChanges();
+            _config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory() + @"\")
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            string connectionString = _config.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+
+            _options = optionsBuilder.Options;
         }
-        public void DeleteCategory(int id)
+
+        public static void CreateCategory(Category category)
         {
-            var category = _context.Categories.Find(id);
-            if (category != null)
+            using (var context = new AppDbContext(_options, _config))
             {
-                _context.Categories.Remove(category);
-                _context.SaveChanges();
+                context.Categories.Add(category);
+                context.SaveChanges();
             }
         }
-        public List<Category> GetCategories()
+
+        public static void UpdateCategory(Category category)
         {
-            return _context.Categories.ToList();
+            using (var context = new AppDbContext(_options, _config))
+            {
+                context.Categories.Update(category);
+                context.SaveChanges();
+            }
         }
-        public Category GetCategory(int id)
+
+        public static void DeleteCategory(int id)
         {
-            var category = _context.Categories.Find(id);
-            return category;
+            using (var context = new AppDbContext(_options, _config))
+            {
+                var category = context.Categories.Find(id);
+                if (category != null)
+                {
+                    context.Categories.Remove(category);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static List<Category> GetCategories()
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Categories.ToList();
+            }
+        }
+
+        public static Category GetCategory(int id)
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Categories.Find(id);
+            }
         }
     }
 }
