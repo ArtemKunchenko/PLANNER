@@ -85,8 +85,8 @@ namespace PLANNER
                 ServiceCurrency.CreateCurrency(new Currency { currency_code = "EUR" });
                 
             }
-            //var users = ServiceUser.GetUsers();
-            //if (users.Count==0) ServiceUser.CreateUser(new User { username = "Admin", password = "Admin" });
+            var users = ServiceUser.GetUsers();
+            if (users.Count == 0) ServiceUser.CreateUser(new User { username = "Admin", password = "Admin" });
         }
 
         private void DropDownButton_Click(object sender, RoutedEventArgs e)

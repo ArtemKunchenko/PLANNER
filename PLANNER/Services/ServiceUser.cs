@@ -1,47 +1,78 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PLANNER.Models
 {
-    public class ServiceUser
+    public static class ServiceUser
     {
-        private readonly AppDbContext _context;
-        public ServiceUser(AppDbContext context)
-        {
-            _context = context;
-        }
-        public void CreateUser(User user)
-        {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+        private static readonly DbContextOptions<AppDbContext> _options;
+        private static readonly IConfiguration _config;
 
-        }
-        public void UpdateUser(User user)
+        static ServiceUser()
         {
-            _context.Users.Update(user);
-            _context.SaveChanges();
+            _config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory() + @"\")
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            string connectionString = _config.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+
+            _options = optionsBuilder.Options;
         }
-        public void DeleteUser(int id)
+
+        public static void CreateUser(User user)
         {
-            var user = _context.Users.Find(id);
-            if (user != null)
+            using (var context = new AppDbContext(_options, _config))
             {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
+                context.Users.Add(user);
+                context.SaveChanges();
             }
         }
-        public List<User> GetUsers()
+
+        public static void UpdateUser(User user)
         {
-            return _context.Users.ToList();
-        }
-        public User GetUser(int id)
-        {
-            var user = _context.Users.Find(id);
-            return user;
+            using (var context = new AppDbContext(_options, _config))
+            {
+                context.Users.Update(user);
+                context.SaveChanges();
+            }
         }
 
+        public static void DeleteUser(int id)
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                var user = context.Users.Find(id);
+                if (user != null)
+                {
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static List<User> GetUsers()
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Users.ToList();
+            }
+        }
+
+        public static User GetUser(int id)
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Users.Find(id);
+            }
+        }
     }
 }
