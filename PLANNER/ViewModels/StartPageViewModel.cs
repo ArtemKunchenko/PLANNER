@@ -10,6 +10,7 @@ namespace PLANNER.ViewModels
 {
     public class StartPageViewModel : ViewModelBase
     {
+        #region VARIABLES
         private decimal _usdRate;
         private decimal _eurRate;
         private decimal _currentBalance;
@@ -19,6 +20,7 @@ namespace PLANNER.ViewModels
         private decimal _annualExpenses;
         private decimal _monthlyIncomes;
         private decimal _annualIncomes;
+        private DateTime? _currentDate = DateTime.Now;
 
         public decimal USDRate
         {
@@ -74,14 +76,13 @@ namespace PLANNER.ViewModels
             set => Set(ref _annualIncomes, Math.Round(value, 2));
         }
 
+        #endregion
+
         public StartPageViewModel()
         {
-            //Значения для примера. Необходима интеграция с СУБД
-            CurrentBalance = 1000000;
-            MonthlyExpenses = 500;
-            AnnualExpenses = 2000;
-            MonthlyIncomes = 30000;
-            AnnualIncomes = 900000;
+           
+            InitializeDefaultData();
+            LoadCurrentValues();
             LoadExchangingRatesAsync();
         }
 
@@ -102,9 +103,60 @@ namespace PLANNER.ViewModels
                 EURRate = Math.Round(eurRate.rate, 2);
                 CurrentBalanceEUR = Math.Round(CurrentBalance / eurRate.rate, 2);
             }
+                      
+        }
 
-            
-            
+        private void LoadCurrentValues()
+        {
+            int? currentMonth = _currentDate?.Month;
+            int? currentYear = _currentDate?.Year;
+
+            //Set current balance
+            var balances = ServiceBalance.GetBalances();
+            if(balances.Count != 0) 
+            { 
+                Balance balance=balances.Last();
+                CurrentBalance = balance.total_amount;
+            }
+            else CurrentBalance = 0;
+
+            //Set expenses and incomes
+            var transactions = ServiceTransaktion.GetTransaktions();
+            if (transactions.Count != 0)
+            {
+                foreach (var t in transactions)
+                {
+                    if (t.transaktion_date.Month == currentMonth && t.amount < 0) MonthlyExpenses += t.amount;
+                    if (t.transaktion_date.Month == currentMonth && t.amount > 0) MonthlyIncomes += t.amount;
+                    if (t.transaktion_date.Year == currentYear && t.amount < 0) AnnualExpenses += t.amount;
+                    if (t.transaktion_date.Year == currentYear && t.amount > 0) AnnualIncomes += t.amount;
+                }
+                //Change sign before value
+                MonthlyExpenses = -MonthlyExpenses;
+                AnnualExpenses = -AnnualExpenses;
+            }
+            else
+            {
+
+                MonthlyExpenses = 0;
+                AnnualExpenses = 0;
+                MonthlyIncomes = 0;
+                AnnualIncomes = 0;
+            }
+        }
+
+        private void InitializeDefaultData()
+        {
+            var currencies = ServiceCurrency.GetCurrencies();
+            if (currencies.Count == 0)
+            {
+                ServiceCurrency.CreateCurrency(new Currency { currency_code = "UAN" });
+                ServiceCurrency.CreateCurrency(new Currency { currency_code = "USD" });
+                ServiceCurrency.CreateCurrency(new Currency { currency_code = "EUR" });
+
+            }
+            var users = ServiceUser.GetUsers();
+            if (users.Count == 0) ServiceUser.CreateUser(new User { username = "Admin", password = "Admin" });
         }
     }
 }

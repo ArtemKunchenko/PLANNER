@@ -15,7 +15,7 @@ namespace PLANNER.Models
 {
     public partial class AppDbContext : DbContext
     {
-        
+
 
 
         private readonly IConfiguration _configuration;
@@ -66,6 +66,7 @@ namespace PLANNER.Models
                 .WithMany()
                 .HasForeignKey(b => b.user_id)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
             modelBuilder.Entity<Transaktion>()
                 .HasOne(t => t.Currency)

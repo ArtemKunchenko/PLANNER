@@ -26,7 +26,7 @@ namespace PLANNER.Models
         public Currency Currency { get; set; }
 
         [ForeignKey("Note")]
-        public int note_id { get; set; }
+        public int? note_id { get; set; }
         public Note Note { get; set; }
 
         [Required]
