@@ -68,6 +68,8 @@ namespace PLANNER.Models
                 .OnDelete(DeleteBehavior.Restrict);
 
 
+            
+
             modelBuilder.Entity<Transaktion>()
                 .HasOne(t => t.Currency)
                 .WithMany()
@@ -76,13 +78,13 @@ namespace PLANNER.Models
 
             modelBuilder.Entity<Transaktion>()
                 .HasOne(t => t.Category)
-                .WithMany()
+                .WithMany(c => c.Transaktions)
                 .HasForeignKey(t => t.category_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Transaktion>()
                 .HasOne(t => t.Bankaccount)
-                .WithMany()
+                .WithMany(b => b.Transaktions)
                 .HasForeignKey(t => t.bankaccount_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
