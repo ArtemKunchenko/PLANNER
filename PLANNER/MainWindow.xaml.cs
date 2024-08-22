@@ -27,14 +27,7 @@ namespace PLANNER
             InitializeComponent();           
             DataContext = new ViewModels.MainViewModel();
         }
-
-        
-
-        private void DropDownButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            DropDownPopup.IsOpen = !DropDownPopup.IsOpen;
-        }
+     
 
     }
 }
