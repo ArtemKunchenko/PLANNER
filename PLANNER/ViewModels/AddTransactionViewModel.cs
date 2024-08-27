@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace PLANNER.ViewModels
 {
@@ -37,11 +39,11 @@ namespace PLANNER.ViewModels
             MiscellaneousIncome
         }
         private string _transactionType;
-        private string _category;
+        private Category _selectedCategory;
         private DateTime _date;
         private decimal _amount;
         private string _note;
-        private List<string> _categories;
+        private ObservableCollection<Category> _categories;
 
         public string TransactionType
         {
@@ -55,10 +57,10 @@ namespace PLANNER.ViewModels
             }
         }
 
-        public string Category
+        public Category SelectedCategory
         {
-            get => _category;
-            set => Set(ref _category, value);
+            get => _selectedCategory;
+            set => Set(ref _selectedCategory, value);
         }
 
         public DateTime Date
@@ -79,7 +81,7 @@ namespace PLANNER.ViewModels
             set => Set(ref _note, value);
         }
 
-        public List<string> Categories
+        public ObservableCollection<Category> Categories
         {
             get => _categories;
             set => Set(ref _categories, value);
@@ -91,7 +93,6 @@ namespace PLANNER.ViewModels
 
         public AddTransactionViewModel()
         {
-
             Date = DateTime.Now;
             AddTransactionCommand = new RelayCommand(AddTransaction);
             InitializeDefaultData();
@@ -100,40 +101,77 @@ namespace PLANNER.ViewModels
 
         private void InitializeDefaultData()
         {
-            var categotries=ServiceCategory.GetCategories();
+            var categories = ServiceCategory.GetCategories();
+            if (categories.Count == 0)
+            {
+                var categoriesEnum = Enum.GetValues(typeof(FinancialCategory));
+
+                foreach (var categoryEnum in categoriesEnum)
+                {
+                    var categoryName = categoryEnum.ToString();
+                    var category = new Category { name_category = categoryName };
+                    ServiceCategory.CreateCategory(category);
+                }
+            }
         }
 
         private void LoadCategories()
         {
-            // Загрузка категорий на основе типа транзакции
-            if (TransactionType == "Expense")
-            {
-                Categories = new List<string> { "Food", "Rent", "Utilities", "Transportation", "Entertainment", "Healthcare", "Education", "Clothing", "Insurance", "Miscellaneous" };
-            }
-            else if (TransactionType == "Income")
-            {
-                Categories = new List<string> { "Salary", "Business", "Investment", "Freelance", "RentalIncome", "Royalties", "Dividends", "Gifts", "Grants", "Miscellaneous" };
-            }
-            else
-            {
-                Categories = new List<string>();
-            }
+            var categoriesFromDb = ServiceCategory.GetCategories();
+            var sortedCategories = categoriesFromDb.OrderBy(c => c.name_category).ToList();
+            Categories = new ObservableCollection<Category>(sortedCategories);
+
         }
 
         private void AddTransaction()
         {
-            // Создаем новую транзакцию и сохраняем её
+           
+            if (SelectedCategory == null)
+            {
+                return;
+            }
+            
+            int selectedCurrencyId = 1; 
+
+            
             var transaction = new Transaktion
             {
-                transaktion_date = Date,
-                amount = TransactionType == "Expense" ? -Math.Abs(Amount) : Math.Abs(Amount), // Если тип "Expense", делаем сумму отрицательной
-                note_id = 0, // Предположим, что это значение будет получено или установлено
-                category_id = 1, // Здесь нужно связать с выбранной категорией, например, через ID
-                bankaccount_id = 1 // Примерное значение, должно быть получено из текущего контекста
+                transaktion_date = Date, 
+                amount = TransactionType == "Expense" ? -Math.Abs(Amount) : Math.Abs(Amount), 
+                is_online = false, 
+                currency_id = selectedCurrencyId,               
+                category_id = SelectedCategory.category_id, 
+                bankaccount_id = 1 
             };
+            if (string.IsNullOrWhiteSpace(Note)) Note = "-";
+            var newNote=new Note { transaktion_id = 0, content = Note };
+            ServiceNote.CreateNote(newNote);
+            var notes=ServiceNote.GetNotes();
+            newNote = notes.Last();
+            transaction.note_id = newNote.note_id;
 
-            // Вызов метода сервиса для добавления транзакции
             ServiceTransaktion.CreateTransaktion(transaction);
+            var transactions = ServiceTransaktion.GetTransaktions();
+            var savedTransaction = transactions.Last();
+            newNote.transaktion_id = savedTransaction.transaktion_id;
+            ServiceNote.UpdateNote(newNote);
+
+            var balances=ServiceBalance.GetBalances();
+            Balance currentBalance = null;
+            
+            if (balances != null && balances.Any()) 
+            {
+                currentBalance = balances.Last(); 
+            }
+            else
+            {
+                currentBalance = new Balance { bankaccount_id = 1, total_amount = 0, limit_amount = 0, created_at = Date };
+            }
+            currentBalance.total_amount += transaction.amount;
+            currentBalance.created_at= Date;
+            ServiceBalance.CreateBalance(currentBalance);
+
         }
+
     }
 }
