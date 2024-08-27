@@ -56,19 +56,16 @@ namespace PLANNER.Models
                 .WithMany()
                 .HasForeignKey(e => e.currency_to)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<User>()
+            
+           modelBuilder.Entity<User>()
                 .HasIndex(u => u.username)
                 .IsUnique();
 
             modelBuilder.Entity<Bankaccount>()
                 .HasOne(b => b.User)
-                .WithMany()
+                .WithMany(u => u.Bankaccounts)
                 .HasForeignKey(b => b.user_id)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
-            
 
             modelBuilder.Entity<Transaktion>()
                 .HasOne(t => t.Currency)

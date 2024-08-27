@@ -34,6 +34,7 @@ namespace PLANNER.Models
             {
                 context.Users.Add(user);
                 context.SaveChanges();
+              
             }
         }
 
@@ -43,6 +44,7 @@ namespace PLANNER.Models
             {
                 context.Users.Update(user);
                 context.SaveChanges();
+               
             }
         }
 

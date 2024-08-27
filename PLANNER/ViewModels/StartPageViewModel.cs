@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using GalaSoft.MvvmLight;
 using PLANNER.Models;
 
@@ -80,10 +81,17 @@ namespace PLANNER.ViewModels
 
         public StartPageViewModel()
         {
-           
-            InitializeDefaultData();
-            LoadCurrentValues();
-            LoadExchangingRatesAsync();
+            try
+            {
+                InitializeDefaultData();
+                LoadCurrentValues();
+                LoadExchangingRatesAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private async void LoadExchangingRatesAsync()
@@ -147,6 +155,8 @@ namespace PLANNER.ViewModels
 
         private void InitializeDefaultData()
         {
+
+
             var currencies = ServiceCurrency.GetCurrencies();
             if (currencies.Count == 0)
             {
@@ -156,10 +166,35 @@ namespace PLANNER.ViewModels
 
             }
             var users = ServiceUser.GetUsers();
-            if (users.Count == 0) ServiceUser.CreateUser(new User { username = "Admin", password = "Admin" });
+            int usered=1;
 
-            //var bankaccounts=ServiceBankaccount.GetBankaccounts();
-            //if (bankaccounts.Count == 0) ServiceBankaccount.CreateBankaccount(new Bankaccount { user_id = 1, balance_id = 0, status="active", purpose="1000000" });
+            if (users.Count == 0)
+            {
+                var admin = new User { username = "Admin", password = "Admin" };
+                ServiceUser.CreateUser(admin );
+                usered = admin.user_id;
+                
+
+            }
+            else
+            {
+                usered = users[0].user_id;
+
+            }
+           
+            try
+            {
+                var bankaccounts = ServiceBankaccount.GetBankaccounts();
+                if (bankaccounts.Count == 0) ServiceBankaccount.CreateBankaccount(new Bankaccount { user_id = usered, balance_id = 0, status = "active", purpose = "1000" });
+            }
+            catch (Exception ex)
+            {
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            
+            
 
 
         }
