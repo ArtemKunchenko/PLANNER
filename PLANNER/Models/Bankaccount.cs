@@ -17,7 +17,7 @@ namespace PLANNER.Models
 
         [ForeignKey("User")]
         public int user_id { get; set; }
-        public User User { get; set; }
+        public User ?User { get; set; }
 
         [Required]
         public int balance_id { get; set; }

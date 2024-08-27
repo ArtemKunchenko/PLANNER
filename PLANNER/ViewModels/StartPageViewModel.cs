@@ -157,6 +157,11 @@ namespace PLANNER.ViewModels
             }
             var users = ServiceUser.GetUsers();
             if (users.Count == 0) ServiceUser.CreateUser(new User { username = "Admin", password = "Admin" });
+
+            //var bankaccounts=ServiceBankaccount.GetBankaccounts();
+            //if (bankaccounts.Count == 0) ServiceBankaccount.CreateBankaccount(new Bankaccount { user_id = 1, balance_id = 0, status="active", purpose="1000000" });
+
+
         }
     }
 }
