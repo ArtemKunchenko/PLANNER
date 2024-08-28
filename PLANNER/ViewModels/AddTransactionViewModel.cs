@@ -138,23 +138,16 @@ namespace PLANNER.ViewModels
             {
                 transaktion_date = Date, 
                 amount = TransactionType == "Expense" ? -Math.Abs(Amount) : Math.Abs(Amount), 
-                is_online = false, 
                 currency_id = selectedCurrencyId,               
                 category_id = SelectedCategory.category_id, 
                 bankaccount_id = 1 
             };
-            if (string.IsNullOrWhiteSpace(Note)) Note = "-";
-            var newNote=new Note { transaktion_id = 0, content = Note };
-            ServiceNote.CreateNote(newNote);
-            var notes=ServiceNote.GetNotes();
-            newNote = notes.Last();
-            transaction.note_id = newNote.note_id;
+           
 
             ServiceTransaktion.CreateTransaktion(transaction);
             var transactions = ServiceTransaktion.GetTransaktions();
             var savedTransaction = transactions.Last();
-            newNote.transaktion_id = savedTransaction.transaktion_id;
-            ServiceNote.UpdateNote(newNote);
+            
 
             var balances=ServiceBalance.GetBalances();
             Balance currentBalance = null;
@@ -165,7 +158,7 @@ namespace PLANNER.ViewModels
             }
             else
             {
-                currentBalance = new Balance { bankaccount_id = 1, total_amount = 0, limit_amount = 0, created_at = Date };
+                currentBalance = new Balance { bankaccount_id = 1, total_amount = 0, created_at = Date };
             }
             currentBalance.total_amount += transaction.amount;
             currentBalance.created_at= Date;

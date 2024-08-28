@@ -185,7 +185,7 @@ namespace PLANNER.ViewModels
             try
             {
                 var bankaccounts = ServiceBankaccount.GetBankaccounts();
-                if (bankaccounts.Count == 0) ServiceBankaccount.CreateBankaccount(new Bankaccount { user_id = usered, balance_id = 0, status = "active", purpose = "1000" });
+                if (bankaccounts.Count == 0) ServiceBankaccount.CreateBankaccount(new Bankaccount { user_id = usered, balance_id = 0 });
             }
             catch (Exception ex)
             {

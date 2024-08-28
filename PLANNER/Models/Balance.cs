@@ -22,9 +22,7 @@ namespace PLANNER.Models
         [Column(TypeName = "decimal(10, 2)")]
         public decimal total_amount { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(10, 2)")]
-        public decimal limit_amount { get; set; }
+       
 
         public DateTime created_at { get; set; }
     }

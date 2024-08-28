@@ -21,13 +21,12 @@ namespace PLANNER.Models
         private readonly IConfiguration _configuration;
 
         public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Exchange> Exchanges { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Bankaccount> Bankaccounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Transaktion> Transaktions { get; set; }
         public DbSet<Balance> Balances { get; set; }
-        public DbSet<Note> Notes { get; set; }
+       
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
         {
@@ -45,17 +44,7 @@ namespace PLANNER.Models
            .Property(c => c.updated_at)
            .HasDefaultValueSql("GETDATE()");
 
-            modelBuilder.Entity<Exchange>()
-                .HasOne(e => e.CurrencyFrom)
-                .WithMany()
-                .HasForeignKey(e => e.currency_from)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Exchange>()
-                .HasOne(e => e.CurrencyTo)
-                .WithMany()
-                .HasForeignKey(e => e.currency_to)
-                .OnDelete(DeleteBehavior.Restrict);
+            
             
            modelBuilder.Entity<User>()
                 .HasIndex(u => u.username)
@@ -91,11 +80,7 @@ namespace PLANNER.Models
                 .HasForeignKey<Balance>(b => b.bankaccount_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Note>()
-                .HasOne(n => n.Transaktion)
-                .WithOne()
-                .HasForeignKey<Note>(n => n.transaktion_id)
-                .OnDelete(DeleteBehavior.Restrict);
+           
         }
 
     }

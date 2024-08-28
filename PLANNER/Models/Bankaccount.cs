@@ -23,13 +23,9 @@ namespace PLANNER.Models
         public int balance_id { get; set; }
 
 
-        [Required]
-        [StringLength(255)]
-        public string status { get; set; }
+       
 
-        [Required]
-        [StringLength(255)]
-        public string purpose { get; set; }
+        
 
         public ICollection<Transaktion> Transaktions { get; set; }
     }
