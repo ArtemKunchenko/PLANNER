@@ -6,6 +6,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace PLANNER.ViewModels
 {
@@ -122,6 +123,14 @@ namespace PLANNER.ViewModels
             Categories = new ObservableCollection<Category>(sortedCategories);
 
         }
+        private void ResetFields()
+        {
+            TransactionType = null; 
+            SelectedCategory = null;
+            Date = DateTime.Now; 
+            Amount = 0; 
+            Note = string.Empty; 
+        }
 
         private void AddTransaction()
         {
@@ -132,13 +141,15 @@ namespace PLANNER.ViewModels
             }
             
             int selectedCurrencyId = 1; 
+            if(string.IsNullOrWhiteSpace(Note)) Note= string.Empty;
 
             
             var transaction = new Transaktion
             {
                 transaktion_date = Date, 
                 amount = TransactionType == "Expense" ? -Math.Abs(Amount) : Math.Abs(Amount), 
-                currency_id = selectedCurrencyId,               
+                currency_id = selectedCurrencyId,   
+                note=Note,
                 category_id = SelectedCategory.category_id, 
                 bankaccount_id = 1 
             };
@@ -160,10 +171,20 @@ namespace PLANNER.ViewModels
             {
                 currentBalance = new Balance { bankaccount_id = 1, total_amount = 0, created_at = Date };
             }
-            currentBalance.total_amount += transaction.amount;
-            currentBalance.created_at= Date;
-            ServiceBalance.CreateBalance(currentBalance);
 
+            Balance newBalance=new Balance { bankaccount_id = 1, total_amount = currentBalance.total_amount += transaction.amount, created_at = Date }
+            ;
+            
+            ServiceBalance.CreateBalance(newBalance);
+
+            var currentBankaccount=ServiceBankaccount.GetBankaccount(transaction.bankaccount_id);
+            balances = ServiceBalance.GetBalances();
+            var lastBalance= balances.Last();
+            currentBankaccount.balance_id = lastBalance.balance_id;
+            ServiceBankaccount.UpdateBankaccount(currentBankaccount);
+
+            MessageBox.Show("Transaktion added");
+            ResetFields();
         }
 
     }
