@@ -132,6 +132,7 @@ namespace PLANNER.ViewModels
             var transactions = ServiceTransaktion.GetTransaktions();
             if (transactions.Count != 0)
             {
+
                 foreach (var t in transactions)
                 {
                     if (t.transaktion_date.Month == currentMonth && t.amount < 0) MonthlyExpenses += t.amount;
@@ -197,6 +198,16 @@ namespace PLANNER.ViewModels
             
 
 
+        }
+
+        public void ReloadData()
+        {
+            MonthlyExpenses = 0;
+            MonthlyIncomes= 0;
+            AnnualExpenses = 0;
+            AnnualIncomes = 0;
+            LoadCurrentValues();
+            LoadExchangingRatesAsync();
         }
     }
 }

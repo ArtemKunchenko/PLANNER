@@ -131,6 +131,11 @@ namespace PLANNER.ViewModels
             Amount = 0; 
             Note = string.Empty; 
         }
+        private void UpdateStartPageData()
+        {
+            var startPageViewModel = ViewModelLocatorProvider.Locator.StartPageViewModel;
+            startPageViewModel.ReloadData();
+        }
 
         private void AddTransaction()
         {
@@ -185,6 +190,7 @@ namespace PLANNER.ViewModels
 
             MessageBox.Show("Transaktion added");
             ResetFields();
+            UpdateStartPageData();
         }
 
     }
