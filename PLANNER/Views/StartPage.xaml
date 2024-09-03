@@ -3,16 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Transaction Manager" Height="600" Width="800">
     <Grid>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>-->
-
-        <!--<StackPanel Grid.Column="0" Background="#2C3E50" Margin="0,0,50,0">
-            <Button Content="StartPage" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10"/>
-            <Button Content="Transactions" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10"/>
-            <Button Content="Settings" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10"/>
-        </StackPanel>-->
+        
         <StackPanel Margin="10,10,10,10" Grid.ColumnSpan="2">
             <TextBlock Text="Transaction Log " FontSize="24" FontWeight="Bold" Margin="0 0 0 20"/>
             <Grid Grid.Row="2" Height="120">
@@ -36,8 +27,14 @@
                 Foreground="Black" Margin="50,46,50,23"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,15">
                     <TextBlock FontSize="20" Text="Currency Rates" Margin="0,0,0,20" />
-                    <TextBlock FontSize="14" Text="   USD to UAH: 41" Margin="0,0,0,10" />
-                    <TextBlock FontSize="14" Text="   EUR to UAH: 45" Margin="0,0,0,10" />
+                    <TextBlock FontSize="14" Margin="0,0,0,10">
+    <Run Text="USD to UAH: "/>
+    <Run Text="{Binding USDRate}" />
+                    </TextBlock>
+                    <TextBlock FontSize="14" Margin="0,0,0,10">
+    <Run Text="EUR to UAH: "/>
+    <Run Text="{Binding EURRate}" />
+                    </TextBlock>
                 </StackPanel>
             </Grid>
 

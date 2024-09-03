@@ -1,4 +1,5 @@
 ﻿using PLANNER.Models;
+using PLANNER.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,11 @@ namespace PLANNER
     
     public partial class Page1: Page
     {
-     
+        
         public Page1()
         {
             InitializeComponent();
-            DataContext = new ViewModels.StartPageViewModel();
-
+            DataContext = ViewModelLocatorProvider.Locator.StartPageViewModel;
         }
 
       

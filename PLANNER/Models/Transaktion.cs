@@ -14,8 +14,7 @@ namespace PLANNER.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int transaktion_id { get; set; }
 
-        [Required]
-        public bool is_online { get; set; } = false;
+      
 
         [Required]
         [Column(TypeName = "decimal(10, 2)")]
@@ -25,9 +24,8 @@ namespace PLANNER.Models
         public int currency_id { get; set; }
         public Currency Currency { get; set; }
 
-        [ForeignKey("Note")]
-        public int? note_id { get; set; }
-        public Note Note { get; set; }
+        [Required]
+        public string note {  get; set; }
 
         [Required]
         public DateTime transaktion_date { get; set; }

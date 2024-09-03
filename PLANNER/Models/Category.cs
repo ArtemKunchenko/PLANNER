@@ -20,7 +20,7 @@ namespace PLANNER.Models
         public string name_category { get; set; }
 
         [StringLength(255)]
-        public string description { get; set; }
+        public string ?description { get; set; }
 
         public ICollection<Transaktion> Transaktions { get; set; }
     }

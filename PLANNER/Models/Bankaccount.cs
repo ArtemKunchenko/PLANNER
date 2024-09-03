@@ -17,18 +17,15 @@ namespace PLANNER.Models
 
         [ForeignKey("User")]
         public int user_id { get; set; }
-        public User User { get; set; }
+        public User ?User { get; set; }
 
         [Required]
         public int balance_id { get; set; }
 
-        [Required]
-        [StringLength(255)]
-        public string status { get; set; }
 
-        [Required]
-        [StringLength(255)]
-        public string purpose { get; set; }
+       
+
+        
 
         public ICollection<Transaktion> Transaktions { get; set; }
     }

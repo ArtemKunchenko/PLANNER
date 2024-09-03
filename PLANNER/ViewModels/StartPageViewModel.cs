@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using GalaSoft.MvvmLight;
 using PLANNER.Models;
 
@@ -80,10 +81,17 @@ namespace PLANNER.ViewModels
 
         public StartPageViewModel()
         {
-           
-            InitializeDefaultData();
-            LoadCurrentValues();
-            LoadExchangingRatesAsync();
+            try
+            {
+                InitializeDefaultData();
+                LoadCurrentValues();
+                LoadExchangingRatesAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private async void LoadExchangingRatesAsync()
@@ -124,6 +132,7 @@ namespace PLANNER.ViewModels
             var transactions = ServiceTransaktion.GetTransaktions();
             if (transactions.Count != 0)
             {
+
                 foreach (var t in transactions)
                 {
                     if (t.transaktion_date.Month == currentMonth && t.amount < 0) MonthlyExpenses += t.amount;
@@ -147,6 +156,8 @@ namespace PLANNER.ViewModels
 
         private void InitializeDefaultData()
         {
+
+
             var currencies = ServiceCurrency.GetCurrencies();
             if (currencies.Count == 0)
             {
@@ -156,7 +167,47 @@ namespace PLANNER.ViewModels
 
             }
             var users = ServiceUser.GetUsers();
-            if (users.Count == 0) ServiceUser.CreateUser(new User { username = "Admin", password = "Admin" });
+            int usered=1;
+
+            if (users.Count == 0)
+            {
+                var admin = new User { username = "Admin", password = "Admin" };
+                ServiceUser.CreateUser(admin );
+                usered = admin.user_id;
+                
+
+            }
+            else
+            {
+                usered = users[0].user_id;
+
+            }
+           
+            try
+            {
+                var bankaccounts = ServiceBankaccount.GetBankaccounts();
+                if (bankaccounts.Count == 0) ServiceBankaccount.CreateBankaccount(new Bankaccount { user_id = usered, balance_id = 0 });
+            }
+            catch (Exception ex)
+            {
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            
+            
+
+
+        }
+
+        public void ReloadData()
+        {
+            MonthlyExpenses = 0;
+            MonthlyIncomes= 0;
+            AnnualExpenses = 0;
+            AnnualIncomes = 0;
+            LoadCurrentValues();
+            LoadExchangingRatesAsync();
         }
     }
 }
