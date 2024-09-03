@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Threading;
+using TransaktionList;
 
 namespace PLANNER.ViewModels
 {
@@ -18,6 +19,7 @@ namespace PLANNER.ViewModels
         private Page Page1;
         private Page Page2;
         private Page Page3;
+        private Page Page4;
 
         private Page _currentPage;
         public Page CurrentPage 
@@ -43,7 +45,8 @@ namespace PLANNER.ViewModels
         {
             Page1 = new Page1();
             Page2 = new Page2();
-            Page3 = new Page3();
+            Page3 = new ChartPage();
+            Page4 = new FilterPage();
             FrameOpasity = 1;
             CurrentPage = Page1;
         }
@@ -86,6 +89,13 @@ namespace PLANNER.ViewModels
             get
             {
                 return new RelayCommand(() => SlowOpasity(Page3));
+            }
+        }
+        public ICommand page4Button_Click
+        {
+            get
+            {
+                return new RelayCommand(() => SlowOpasity(Page4));
             }
         }
     }
