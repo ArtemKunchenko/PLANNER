@@ -8,7 +8,8 @@ namespace PLANNER.ViewModels
     public class ViewModelLocator
     {
         public StartPageViewModel StartPageViewModel { get; } = new StartPageViewModel();
-        public AddTransactionViewModel AddTransactionViewModel { get; }= new AddTransactionViewModel();
+        public AddTransactionViewModel AddTransactionViewModel { get; } = new AddTransactionViewModel();
+        public TransactionListViewModel TransactionListViewModel { get; } = new TransactionListViewModel();
 
     }
 }
