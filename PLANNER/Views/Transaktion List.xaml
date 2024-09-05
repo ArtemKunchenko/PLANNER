@@ -51,11 +51,11 @@
         </StackPanel>
 
         <DataGrid x:Name="DataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False"
-                  ItemsSource="{Binding FilteredTransactions}">
+                  ItemsSource="{Binding ListTransaktionForTable}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding transaktion_date, StringFormat=dd.MM.yyyy}" Width="*"/>
-                <DataGridTextColumn Header="Income/Expense" Binding="{Binding amount}" Width="*"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category.category_name}" Width="*"/>
+                <DataGridTextColumn Header="Income/Expense" Binding="{Binding incomeOrExpence}" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category.name_category}" Width="*"/>
                 <DataGridTextColumn Header="Amount" Binding="{Binding amount}" Width="*"/>
                 <DataGridTextColumn Header="Note" Binding="{Binding note}" Width="*"/>
             </DataGrid.Columns>
