@@ -74,5 +74,12 @@ namespace PLANNER.Models
                 return context.Transaktions.Find(id);
             }
         }
+        public static List<Transaktion> GetTransaktionsWithCategories()
+        {
+            using (var context = new AppDbContext(_options, _config))
+            {
+                return context.Transaktions.Include(t => t.Category).ToList();
+            }
+        }
     }
 }
