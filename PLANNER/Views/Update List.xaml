@@ -1,0 +1,60 @@
+﻿<Page x:Class="PLANNER.Update_List"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PLANNER"
+      mc:Ignorable="d" 
+      Title="Update_List">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Margin="10">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Label Content="Date:" VerticalAlignment="Center" />
+                <DatePicker x:Name="DatePickerFilter" Width="120" Height="25" Margin="0,0,10,0" />
+
+                <Label Content="Income/Expense:" VerticalAlignment="Center" />
+                <ComboBox x:Name="FilterTypeComboBox" Width="120" Height="25" Margin="0,0,10,0" 
+                          VerticalAlignment="Center">
+                    <ComboBoxItem Content="Income"/>
+                    <ComboBoxItem Content="Expense"/>
+                </ComboBox>
+
+                <Label Content="Category:" VerticalAlignment="Center" />
+                <ComboBox x:Name="CategoryComboBox" Width="120" Margin="0,0,10,0"
+                          VerticalAlignment="Center" Height="25">
+                    <ComboBoxItem Content="Salary"/>
+                    <ComboBoxItem Content="Rent"/>
+                </ComboBox>
+
+                <Label Content="Amount:" VerticalAlignment="Center" />
+                <TextBox x:Name="AmountTextBox" Width="120" Height="25" />
+
+                <Label Content="Note:" VerticalAlignment="Center" />
+                <TextBox x:Name="NoteTextBox" Width="120" Height="25" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Button Content="UPDATE" Width="150" Height="25" 
+                        VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <Button Content="DELETE" Width="150" Height="25" 
+                        Margin="0,0,10,0" />
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid x:Name="DataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding Records}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Income/Expense" Binding="{Binding IncomeExpense}" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
+                <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
