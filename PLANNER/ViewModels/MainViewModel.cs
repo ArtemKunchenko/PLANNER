@@ -20,6 +20,7 @@ namespace PLANNER.ViewModels
         private Page Page2;
         private Page Page3;
         private Page Page4;
+        private Page Page5;
 
         private Page _currentPage;
         public Page CurrentPage 
@@ -47,6 +48,7 @@ namespace PLANNER.ViewModels
             Page2 = new Page2();
             Page3 = new ChartPage();
             Page4 = new FilterPage();
+            Page5 = new Update_List();
             FrameOpasity = 1;
             CurrentPage = Page1;
         }
@@ -96,6 +98,13 @@ namespace PLANNER.ViewModels
             get
             {
                 return new RelayCommand(() => SlowOpasity(Page4));
+            }
+        }
+        public ICommand page5Button_Click
+        {
+            get
+            {
+                return new RelayCommand(() => SlowOpasity(Page5));
             }
         }
     }
