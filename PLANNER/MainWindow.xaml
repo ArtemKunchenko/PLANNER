@@ -12,6 +12,7 @@
             <Button Content="StartPage" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10" Command="{Binding page1Button_Click}"/>
      <Button Content="Transactions" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10" Command="{Binding page2Button_Click}"/>
             <Button Content="Transaktion List" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10" Command="{Binding page4Button_Click}"/>
+            <Button Content="Update List" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10" Command="{Binding page4Button_Click}"/>
             <Button Content="ChartPage" Foreground="White" Background="Transparent" BorderBrush="Transparent" FontSize="16" Margin="10" Command="{Binding page3Button_Click}"/>
  </StackPanel>
        
