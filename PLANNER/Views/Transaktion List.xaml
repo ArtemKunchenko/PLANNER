@@ -5,6 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       Title="Filter Page">
+    <Border BorderBrush="#766ec5" BorderThickness="5">
 
     <Grid>
         <Grid.RowDefinitions>

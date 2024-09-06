@@ -6,8 +6,9 @@
       xmlns:local="clr-namespace:PLANNER"
       mc:Ignorable="d" 
       Title="Update_List">
+    <Border BorderBrush="#766ec5" BorderThickness="5">
 
-    <Grid>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
