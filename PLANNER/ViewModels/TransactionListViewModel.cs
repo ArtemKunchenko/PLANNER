@@ -77,7 +77,7 @@ namespace PLANNER.ViewModels
             LoadInitialTransactions();
         }
 
-        private void LoadInitialTransactions()
+        public void LoadInitialTransactions()
         {
             var currentYear = DateTime.Now.Year;
             var transactions = ServiceTransaktion.GetTransaktionsWithCategories()

@@ -2,63 +2,64 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ChartPage" Height="600" Width="800">
-    <Border BorderBrush="#766ec5" BorderThickness="5">
-    <Grid>
-       
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
-           
-            <ComboBox Width="150" Height="30" 
+    <!--<Border BorderBrush="#766ec5"--> <!--BorderThickness="5">-->
+        <Grid>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
+
+                <ComboBox Width="150" Height="30" 
                       SelectedItem="{Binding SelectedType, Mode=TwoWay}" 
                       ItemsSource="{Binding AvailableTypes}" 
                       Margin="5"/>
-           
-            <ComboBox Width="150" Height="30" 
+
+                <ComboBox Width="150" Height="30" 
                       SelectedItem="{Binding SelectedYear, Mode=TwoWay}" 
                       ItemsSource="{Binding AvailableYears}" 
                       Margin="5"/>
-            
-            <Button Content="Update Chart" Width="100" Height="30" 
+
+                <Button Content="Update Chart" Width="100" Height="30" 
                     Command="{Binding UpdateChartCommand}" 
                     Margin="5"/>
-        </StackPanel>
+            </StackPanel>
 
-      
-        <Canvas x:Name="chartCanvas" Background="LightSkyBlue" Margin="10, 80, 10, 10" Height="450">
-           
-            <TextBlock Text="Jan" FontSize="16" FontWeight="Bold" Canvas.Left="50" Canvas.Bottom="0"/>
-            <TextBlock Text="Feb" FontSize="16" FontWeight="Bold" Canvas.Left="100" Canvas.Bottom="0"/>
-            <TextBlock Text="Mar" FontSize="16" FontWeight="Bold" Canvas.Left="150" Canvas.Bottom="0"/>
-            <TextBlock Text="Apr" FontSize="16" FontWeight="Bold" Canvas.Left="200" Canvas.Bottom="0"/>
-            <TextBlock Text="May" FontSize="16" FontWeight="Bold" Canvas.Left="250" Canvas.Bottom="0"/>
-            <TextBlock Text="Jun" FontSize="16" FontWeight="Bold" Canvas.Left="300" Canvas.Bottom="0"/>
-            <TextBlock Text="Jul" FontSize="16" FontWeight="Bold" Canvas.Left="350" Canvas.Bottom="0"/>
-            <TextBlock Text="Aug" FontSize="16" FontWeight="Bold" Canvas.Left="400" Canvas.Bottom="0"/>
-            <TextBlock Text="Sep" FontSize="16" FontWeight="Bold" Canvas.Left="450" Canvas.Bottom="0"/>
-            <TextBlock Text="Oct" FontSize="16" FontWeight="Bold" Canvas.Left="500" Canvas.Bottom="0"/>
-            <TextBlock Text="Nov" FontSize="16" FontWeight="Bold" Canvas.Left="550" Canvas.Bottom="0"/>
-            <TextBlock Text="Dec" FontSize="16" FontWeight="Bold" Canvas.Left="600" Canvas.Bottom="0"/>
 
-            <TextBlock Text="0k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="20"/>
-            <TextBlock Text="5k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="40"/>
-            <TextBlock Text="10k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="60"/>
-            <TextBlock Text="15k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="80"/>
-            <TextBlock Text="20k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="100"/>
-            <TextBlock Text="25k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="120"/>
-            <TextBlock Text="30k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="140"/>
-            <TextBlock Text="35k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="160"/>
-            <TextBlock Text="40k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="180"/>
-            <TextBlock Text="45k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="200"/>
-            <TextBlock Text="50k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="220"/>
-            <TextBlock Text="55k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="240"/>
-            <TextBlock Text="60k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="260"/>
-            <TextBlock Text="65k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="280"/>
-            <TextBlock Text="70k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="300"/>
-            <TextBlock Text="75k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="320"/>
-            <TextBlock Text="80k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="340"/>
-            <TextBlock Text="85k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="360"/>
-            <TextBlock Text="90k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="380"/>
-            <TextBlock Text="95k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="400"/>
-            <TextBlock Text="100k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="420"/>
-        </Canvas>
-    </Grid>
+            <Canvas x:Name="chartCanvas" Background="LightSkyBlue" Margin="10, 80, 10, 10" Height="450">
+
+                <TextBlock Text="Jan" FontSize="16" FontWeight="Bold" Canvas.Left="50" Canvas.Bottom="0"/>
+                <TextBlock Text="Feb" FontSize="16" FontWeight="Bold" Canvas.Left="100" Canvas.Bottom="0"/>
+                <TextBlock Text="Mar" FontSize="16" FontWeight="Bold" Canvas.Left="150" Canvas.Bottom="0"/>
+                <TextBlock Text="Apr" FontSize="16" FontWeight="Bold" Canvas.Left="200" Canvas.Bottom="0"/>
+                <TextBlock Text="May" FontSize="16" FontWeight="Bold" Canvas.Left="250" Canvas.Bottom="0"/>
+                <TextBlock Text="Jun" FontSize="16" FontWeight="Bold" Canvas.Left="300" Canvas.Bottom="0"/>
+                <TextBlock Text="Jul" FontSize="16" FontWeight="Bold" Canvas.Left="350" Canvas.Bottom="0"/>
+                <TextBlock Text="Aug" FontSize="16" FontWeight="Bold" Canvas.Left="400" Canvas.Bottom="0"/>
+                <TextBlock Text="Sep" FontSize="16" FontWeight="Bold" Canvas.Left="450" Canvas.Bottom="0"/>
+                <TextBlock Text="Oct" FontSize="16" FontWeight="Bold" Canvas.Left="500" Canvas.Bottom="0"/>
+                <TextBlock Text="Nov" FontSize="16" FontWeight="Bold" Canvas.Left="550" Canvas.Bottom="0"/>
+                <TextBlock Text="Dec" FontSize="16" FontWeight="Bold" Canvas.Left="600" Canvas.Bottom="0"/>
+
+                <TextBlock Text="0k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="20"/>
+                <TextBlock Text="5k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="40"/>
+                <TextBlock Text="10k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="60"/>
+                <TextBlock Text="15k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="80"/>
+                <TextBlock Text="20k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="100"/>
+                <TextBlock Text="25k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="120"/>
+                <TextBlock Text="30k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="140"/>
+                <TextBlock Text="35k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="160"/>
+                <TextBlock Text="40k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="180"/>
+                <TextBlock Text="45k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="200"/>
+                <TextBlock Text="50k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="220"/>
+                <TextBlock Text="55k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="240"/>
+                <TextBlock Text="60k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="260"/>
+                <TextBlock Text="65k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="280"/>
+                <TextBlock Text="70k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="300"/>
+                <TextBlock Text="75k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="320"/>
+                <TextBlock Text="80k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="340"/>
+                <TextBlock Text="85k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="360"/>
+                <TextBlock Text="90k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="380"/>
+                <TextBlock Text="95k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="400"/>
+                <TextBlock Text="100k" FontSize="16" FontWeight="Bold" Canvas.Left="0" Canvas.Bottom="420"/>
+            </Canvas>
+        </Grid>
+    <!--</Border>-->
 </Page>

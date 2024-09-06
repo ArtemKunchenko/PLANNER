@@ -15,6 +15,7 @@ namespace PLANNER.ViewModels
         {
             return new ChartPageViewModel(chartCanvas);
         }
+        public UpdateListViewModel UpdateListViewModel { get; } = new UpdateListViewModel();
 
     }
 }

@@ -5,61 +5,62 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       Title="Filter Page">
-    <Border BorderBrush="#766ec5" BorderThickness="5">
+    <!--<Border BorderBrush="#766ec5" BorderThickness="5">-->
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Vertical" Margin="10">
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <ComboBox x:Name="FilterTypeComboBox" Width="150" Margin="0,0,10,0"
+            <StackPanel Orientation="Vertical" Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <ComboBox x:Name="FilterTypeComboBox" Width="150" Margin="0,0,10,0"
                           VerticalAlignment="Center"
                           SelectedItem="{Binding SelectedType, Mode=TwoWay}"
                           ItemsSource="{Binding AvailableTypes}">
-                </ComboBox>
+                    </ComboBox>
 
-                <ComboBox x:Name="ParametersComboBox" Width="150" Margin="0,0,10,0"
+                    <ComboBox x:Name="ParametersComboBox" Width="150" Margin="0,0,10,0"
                           VerticalAlignment="Center"
                           SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                           ItemsSource="{Binding AvailableCategories}">
-                </ComboBox>
+                    </ComboBox>
 
-                <ComboBox x:Name="YearComboBox" Width="100" Margin="0,0,10,0"
+                    <ComboBox x:Name="YearComboBox" Width="100" Margin="0,0,10,0"
                           VerticalAlignment="Center"
                           SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
                           ItemsSource="{Binding AvailableYears}">
-                </ComboBox>
+                    </ComboBox>
 
-                <Button x:Name="ApplyFiltersButton" Content="Apply Filters" Width="120"
+                    <Button x:Name="ApplyFiltersButton" Content="Apply Filters" Width="120"
                         VerticalAlignment="Center"
                         Command="{Binding ApplyFiltersCommand}"/>
-            </StackPanel>
+                </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <DatePicker x:Name="DateComboBox" Width="150" Margin="0,0,10,0"
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <DatePicker x:Name="DateComboBox" Width="150" Margin="0,0,10,0"
                             VerticalAlignment="Center"
                             SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
-                <Button x:Name="ApplyDateFilterButton" Content="Apply Date Filter" Width="150"
+                    <Button x:Name="ApplyDateFilterButton" Content="Apply Date Filter" Width="150"
                         VerticalAlignment="Center"
                         Command="{Binding ApplyDateFilterCommand}"/>
-                <Button x:Name="ClearFiltersButton" Content="Clear Filters" Width="120"
+                    <Button x:Name="ClearFiltersButton" Content="Clear Filters" Width="120"
                         VerticalAlignment="Center"
                         Command="{Binding ClearFiltersCommand}"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
 
-        <DataGrid x:Name="DataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False"
+            <DataGrid x:Name="DataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False"
                   ItemsSource="{Binding ListTransaktionForTable}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding transaktion_date, StringFormat=dd.MM.yyyy}" Width="*"/>
-                <DataGridTextColumn Header="Income/Expense" Binding="{Binding incomeOrExpence}" Width="*"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category.name_category}" Width="*"/>
-                <DataGridTextColumn Header="Amount" Binding="{Binding amount}" Width="*"/>
-                <DataGridTextColumn Header="Note" Binding="{Binding note}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Date" Binding="{Binding transaktion_date, StringFormat=dd.MM.yyyy}" Width="*"/>
+                    <DataGridTextColumn Header="Income/Expense" Binding="{Binding incomeOrExpence}" Width="*"/>
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category.name_category}" Width="*"/>
+                    <DataGridTextColumn Header="Amount" Binding="{Binding amount}" Width="*"/>
+                    <DataGridTextColumn Header="Note" Binding="{Binding note}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    <!--</Border>-->
 </Page>

@@ -5,10 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PLANNER"
       mc:Ignorable="d" 
-      Title="Update_List">
-    <Border BorderBrush="#766ec5" BorderThickness="5">
+      Title="Update_List"
+      >
 
-        <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -17,44 +17,54 @@
         <StackPanel Orientation="Vertical" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <Label Content="Date:" VerticalAlignment="Center" />
-                <DatePicker x:Name="DatePickerFilter" Width="100" Height="25" Margin="0,0,10,0" />
+                <DatePicker x:Name="DatePickerFilter" Width="100" Height="25" Margin="0,0,10,0"
+                            SelectedDate="{Binding SelectedDate}" />
 
                 <Label Content="Income/Expense:" VerticalAlignment="Center" />
-                <ComboBox x:Name="FilterTypeComboBox" Width="100" Height="25" Margin="0,0,10,0" 
-                          VerticalAlignment="Center">
+                <ComboBox x:Name="FilterTypeComboBox" Width="100" Height="25" Margin="0,0,10,0"
+          VerticalAlignment="Center" SelectedItem="{Binding SelectedType, Mode=TwoWay}">
                     <ComboBoxItem Content="Income"/>
                     <ComboBoxItem Content="Expense"/>
                 </ComboBox>
 
                 <Label Content="Category:" VerticalAlignment="Center" />
                 <ComboBox x:Name="CategoryComboBox" Width="100" Margin="0,0,10,0"
-                          VerticalAlignment="Center" Height="25">
-                    <ComboBoxItem Content="Salary"/>
-                    <ComboBoxItem Content="Rent"/>
+          VerticalAlignment="Center" Height="25" SelectedItem="{Binding SelectedCategory.name_category, Mode=TwoWay}">
+                    <ComboBox.ItemsSource>
+                        <Binding Path="Categories"/>
+                    </ComboBox.ItemsSource>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding name_category}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <Label Content="Amount:" VerticalAlignment="Center" />
-                <TextBox x:Name="AmountTextBox" Width="100" Height="25" />
+                <TextBox x:Name="AmountTextBox" Width="100" Height="25" Text="{Binding Amount}" />
 
                 <Label Content="Note:" VerticalAlignment="Center" />
-                <TextBox x:Name="NoteTextBox" Width="100" Height="25" />
+                <TextBox x:Name="NoteTextBox" Width="100" Height="25" Text="{Binding Note}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Button Content="UPDATE" Width="150" Height="25" 
-                        VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <Button Content="UPDATE" Width="150" Height="25"
+                        VerticalAlignment="Center" Margin="0,0,10,0"
+                        Command="{Binding UpdateCommand}" />
                 <Button Content="DELETE" Width="150" Height="25" 
-                        Margin="0,0,10,0" />
+                        Margin="0,0,10,0"
+                        Command="{Binding DeleteCommand}" />
             </StackPanel>
         </StackPanel>
 
-        <DataGrid x:Name="DataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding Records}">
+        <DataGrid x:Name="DataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False"
+                  ItemsSource="{Binding Records}" SelectedItem="{Binding SelectedTransaction}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                <DataGridTextColumn Header="Income/Expense" Binding="{Binding IncomeExpense}" Width="*"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
-                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
-                <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding transaktion_date,StringFormat=dd.MM.yyyy}" Width="*"/>
+                <DataGridTextColumn Header="Income/Expense" Binding="{Binding incomeOrExpence}" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category.name_category}" Width="*"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding amount}" Width="*"/>
+                <DataGridTextColumn Header="Note" Binding="{Binding note}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

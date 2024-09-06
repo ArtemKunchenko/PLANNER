@@ -131,10 +131,14 @@ namespace PLANNER.ViewModels
             Amount = 0; 
             Note = string.Empty; 
         }
-        private void UpdateStartPageData()
+        private void UpdatePages()
         {
             var startPageViewModel = ViewModelLocatorProvider.Locator.StartPageViewModel;
             startPageViewModel.ReloadData();
+            var transaktionListViewModel= ViewModelLocatorProvider.Locator.TransactionListViewModel;
+            transaktionListViewModel.LoadInitialTransactions();
+            var updateTransakrionViewModel = ViewModelLocatorProvider.Locator.UpdateListViewModel;
+            updateTransakrionViewModel.LoadTransactions();
         }
 
         private void AddTransaction()
@@ -190,7 +194,7 @@ namespace PLANNER.ViewModels
 
             MessageBox.Show("Transaktion added");
             ResetFields();
-            UpdateStartPageData();
+            UpdatePages();
         }
 
     }
