@@ -27,7 +27,10 @@ namespace PLANNER
             InitializeComponent();           
             DataContext = new ViewModels.MainViewModel();
         }
-     
 
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
     }
 }

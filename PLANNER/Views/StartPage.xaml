@@ -6,7 +6,7 @@
         <Grid>
 
             <StackPanel Margin="10,10,10,10" Grid.ColumnSpan="2">
-                <TextBlock Text="Transaction Log " FontSize="24" FontWeight="Bold" Margin="0 0 0 20"/>
+                <TextBlock Text="Current metrics " FontSize="24" FontWeight="Bold" Margin="0 0 0 20"/>
                 <Grid Grid.Row="2" Height="120">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -18,22 +18,25 @@
                     Grid.Column="0"
                 Foreground="Black"
                 HorizontalAlignment="Center"/>
-                    <TextBox        
+                    <TextBlock        
                 x:Name="CurrentBalanceBlock"
                     Grid.Column="0"
                 Text="{Binding CurrentBalance}"
-                Background="#d3d3d3"
-                Height="20"    
-                Width="200"
-                Foreground="Black" Margin="50,46,50,23"/>
+                HorizontalAlignment="Center"
+                        
+                        FontSize="20"
+                        FontWeight="Bold"
+                Height="Auto"    
+                Width="Auto"
+                Foreground="DarkBlue" Margin="50,46,50,23"/>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,15">
                         <TextBlock FontSize="20" Text="Currency Rates" Margin="0,0,0,20" />
-                        <TextBlock FontSize="14" Margin="0,0,0,10">
+                    <TextBlock  FontWeight="Bold" Background="#FFA4D1F9" FontSize="14" Margin="0,0,0,10">
     <Run Text="USD to UAH: "/>
     <Run Text="{Binding USDRate}" />
                         </TextBlock>
-                        <TextBlock FontSize="14" Margin="0,0,0,10">
-    <Run Text="EUR to UAH: "/>
+                    <TextBlock  Background="#FFE9F7AD" FontWeight="Bold" FontSize="14" Margin="0,0,0,10">
+    <Run  Text="EUR to UAH: "/>
     <Run Text="{Binding EURRate}" />
                         </TextBlock>
                     </StackPanel>
@@ -50,16 +53,18 @@
                   FontSize="20"
                   Foreground="Black"
                   HorizontalAlignment="Center"/>
-                    <TextBox
+                    <TextBlock
                  Grid.Column="0"
                   x:Name="CurrentBalanceUSDBlock"
                   Text="{Binding CurrentBalanceUSD}"
-                  Background="#d3d3d3"
-                  Height="20"
-                  Width="200"
-                  Foreground="Black"
+                   HorizontalAlignment="Center"
+         FontSize="20"
+         FontWeight="Bold"
+ Height="30"    
+ Width="Auto"
+                  Foreground="DarkBlue"
                   >
-                    </TextBox>
+                    </TextBlock>
 
                     <TextBlock
                   Grid.Column="1"
@@ -67,14 +72,16 @@
                   FontSize="20"
                   Foreground="Black"
                   HorizontalAlignment="Center"/>
-                    <TextBox 
+                    <TextBlock 
                  Grid.Column="1"
                   x:Name="CurrentBalanceEURBlock"
                   Text="{Binding CurrentBalanceEUR}"
-                  Background="#d3d3d3"
-                  Height="20"
-                  Width="200"
-                  Foreground="Black"/>
+                   HorizontalAlignment="Center"
+         FontSize="20"
+         FontWeight="Bold"
+ Height="30"    
+ Width="Auto"
+                  Foreground="DarkBlue"/>
                 </Grid>
 
                 <Grid Grid.Row="2" Height="100" RenderTransformOrigin="0.694,0.551">
@@ -88,15 +95,17 @@
                   FontSize="20"
                   Foreground="Black"
                   HorizontalAlignment="Center"/>
-                    <TextBox 
+                    <TextBlock 
                  Grid.Column="20"
                   x:Name="MonthlyExpensesBlock"
                   Text="{Binding MonthlyExpenses}"
-                  Background="#d3d3d3"
-                  Height="20"
-                  Width="200"
-                  Foreground="Black">
-                    </TextBox>
+                   HorizontalAlignment="Center"
+         FontSize="20"
+         FontWeight="Bold"
+ Height="30"    
+ Width="Auto"
+                  Foreground="IndianRed">
+                    </TextBlock>
 
                     <TextBlock
                   Grid.Column="0"
@@ -104,15 +113,17 @@
                   FontSize="20"
                   Foreground="Black"
                   HorizontalAlignment="Center"/>
-                    <TextBox 
+                    <TextBlock 
                  Grid.Column="0"
                   x:Name="AnnualExpensesBlock"
                   Text="{Binding  AnnualExpenses}"
-                  Background="#d3d3d3"
-                  Height="20"
-                  Width="200"
-                  Foreground="Black">
-                    </TextBox>
+                   HorizontalAlignment="Center"
+         FontSize="20"
+         FontWeight="Bold"
+ Height="30"    
+ Width="Auto"
+                  Foreground="IndianRed">
+                    </TextBlock>
                 </Grid>
 
 
@@ -128,15 +139,17 @@
                   FontSize="20"
                   Foreground="Black"
                   HorizontalAlignment="Center"/>
-                    <TextBox 
+                    <TextBlock 
                   Grid.Column="20"
                   x:Name="MonthlyIncomesBlock"
                   Text="{Binding MonthlyIncomes}"
-                  Background="#d3d3d3"
-                  Height="20"
-                  Width="200"
-                  Foreground="Black">
-                    </TextBox>
+                   HorizontalAlignment="Center"
+         FontSize="20"
+         FontWeight="Bold"
+ Height="30"    
+ Width="Auto"
+                  Foreground="ForestGreen">
+                    </TextBlock>
 
                     <TextBlock
                   Grid.Column="0"
@@ -144,15 +157,17 @@
                   FontSize="20"
                   Foreground="Black"
                   HorizontalAlignment="Center"/>
-                    <TextBox 
+                    <TextBlock 
                  Grid.Column="0"
                   x:Name="AnnualIncomesBlock"
                   Text="{Binding  AnnualIncomes}"
-                  Background="#d3d3d3"
-                  Height="20"
-                  Width="200"
-                  Foreground="Black">
-                    </TextBox>
+                   HorizontalAlignment="Center"
+         FontSize="20"
+         FontWeight="Bold"
+ Height="30"    
+ Width="Auto"
+                  Foreground="ForestGreen">
+                    </TextBlock>
                 </Grid>
 
             </StackPanel>

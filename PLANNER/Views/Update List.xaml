@@ -21,24 +21,16 @@
                             SelectedDate="{Binding SelectedDate}" />
 
                 <Label Content="Income/Expense:" VerticalAlignment="Center" />
-                <ComboBox x:Name="FilterTypeComboBox" Width="100" Height="25" Margin="0,0,10,0"
-          VerticalAlignment="Center" SelectedItem="{Binding SelectedType, Mode=TwoWay}">
-                    <ComboBoxItem Content="Income"/>
-                    <ComboBoxItem Content="Expense"/>
-                </ComboBox>
+                <TextBox x:Name="FilterTypeComboBox" Width="100" Height="25" Margin="0,0,10,0"
+          VerticalAlignment="Center" Text="{Binding SelectedType, Mode=TwoWay}">
+                   
+                </TextBox>
 
                 <Label Content="Category:" VerticalAlignment="Center" />
-                <ComboBox x:Name="CategoryComboBox" Width="100" Margin="0,0,10,0"
-          VerticalAlignment="Center" Height="25" SelectedItem="{Binding SelectedCategory.name_category, Mode=TwoWay}">
-                    <ComboBox.ItemsSource>
-                        <Binding Path="Categories"/>
-                    </ComboBox.ItemsSource>
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding name_category}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <TextBox x:Name="CategoryComboBox" Width="100" Margin="0,0,10,0"
+          VerticalAlignment="Center" Height="25" Text="{Binding SelectedCategory.name_category, Mode=TwoWay}">
+                   
+                </TextBox>
 
                 <Label Content="Amount:" VerticalAlignment="Center" />
                 <TextBox x:Name="AmountTextBox" Width="100" Height="25" Text="{Binding Amount}" />
