@@ -132,7 +132,7 @@ namespace PLANNER.ViewModels
                 SelectedTransaction.incomeOrExpence = Amount >= 0 ? "Income" : "Expense";
                 SelectedTransaction.Category = SelectedCategory;
 
-                // Обновляем коллекцию транзакций
+              
                 LoadTransactions();
 
                 MessageBox.Show("Updated");

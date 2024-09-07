@@ -39,5 +39,5 @@
             NavigationUIVisibility="Hidden"
             Opacity="{Binding FrameOpasity}" Grid.ColumnSpan="4" Grid.RowSpan="2" Navigated="Frame_Navigated"/>
     </Grid>
-    <!--</Border>-->
+    
 </Window>
